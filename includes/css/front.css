@@ -1,0 +1,108 @@
+/* Front-end styles
+	@ Official Docebo plugin for WordPress	
+*/
+
+p.marginbottom0 {margin-bottom: 0;}
+p.margintop0 {margin-top: 0;}
+.docebo-login-box .button-docebo {
+	padding: 4px 12px;
+	margin: 10px 0;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 20px;
+	height: 34px;
+	color: #ffffff;
+	text-shadow: 1px 1px 0 rgba(35, 35, 35, 1);
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid #2E732E;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	background-color: #59B559;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#59B559), to(#2D712D));
+	background-image: -webkit-linear-gradient(top, #59B559, #2D712D);
+	background-image: -moz-linear-gradient(top, #59B559, #2D712D);
+	background-image: -o-linear-gradient(top, #59B559, #2D712D);
+	background-image: linear-gradient(to bottom, #59B559, #2D712D);
+}
+.docebo-login-box .button-docebo:hover {
+	background-color: #59B559;
+	background-image: none;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	-o-transition: all 0.1s linear;
+	transition: all 0.1s linear;
+	text-decoration: none;
+}
+.docebo-login-box label {float: left; width: 30%; margin-right: 5px; line-height: 30px;}
+.docebo-login-box input[type="text"],
+.docebo-login-box input[type="email"],
+.docebo-login-box input[type="password"] {background-color: #ffffff; color: #333; width: 60%; padding: 6px; 
+	border: 1px solid #cccccc;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+	-moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+	-o-transition: border linear 0.2s, box-shadow linear 0.2s;
+	transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+/* --------------------------------------------------- */
+/* Login Box
+/* --------------------------------------------------- */
+#docebo-login-box {border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; font-family: Arial, Helvetica, sans-serif;}
+#docebo-login-box p {font-size: 12px; line-height: 1.4em;}
+#docebo-login-box .login-container {padding: 20px;}
+#docebo-login-box .login-container .logo-holder {width: 100%; text-align: center; padding: 10px 0;}
+#docebo-login-box .login-container .logo-holder img {max-width: 170px;}
+#docebo-login-box .docebo-text {width: 100%; background: #f9f9f9; border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0; border: none; padding: 7px; font-size: 14px; line-height: 20px; margin-bottom: 10px;
+	box-shadow: 1px 1px 2px #eee inset; -moz-box-shadow: 1px 1px 2px #eee inset; -webkit-box-shadow: 1px 1px 2px #eee inset;} 
+#docebo-login-box input.docebo-button {padding: 7px 10px; font-size: 14px; text-decoration: none; font-weight: 700; margin-top: 10px; cursor: pointer;
+	border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
+
+
+/* --------------------------------------------------- */
+/* SSO Box
+/* --------------------------------------------------- */
+#docebo-sso-box {border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 1.4em;}
+#docebo-sso-box .sso-container {padding: 15px;}
+#docebo-sso-box .course-overview {margin: 10px 0;}
+#docebo-sso-box p {margin: 0;}
+#docebo-sso-box h3 {margin-top: 0; font-size: 18px; font-family: Arial, Helvetica, sans-serif; font-weight: 700;}
+#docebo-sso-box h4 {margin-top: 0; margin-bottom: 10px; font-size: 15px; font-family: Arial, Helvetica, sans-serif; font-weight: 700;
+	padding-bottom: 5px; border-bottom: 1px solid #ccc; -moz-box-shadow: 0px 1px 0px #fff; -webkit-box-shadow: 0px 1px 0px #fff; box-shadow: 0px 1px 0px #fff;}
+#docebo-sso-box img {width: 50px; height: 50px; padding: 1px; background: #fff; border: 1px solid #ccc; float: left;}
+#docebo-sso-box .new-courses {background: url(../images/icon_new_courses.png) left center no-repeat; padding-left: 25px; line-height: 24px;}
+#docebo-sso-box .inprogress-courses {background: url(../images/icon_in_progress.png) left center no-repeat; padding-left: 25px; line-height: 24px;}
+#docebo-sso-box .completed-courses {background: url(../images/icon_completed.png) left center no-repeat; padding-left: 25px; line-height: 24px;}
+#docebo-sso-box span.number {float: right; font-weight: 700;}
+#docebo-sso-box .last-course {float: left; width: 100%; margin-bottom: 35px;}
+#docebo-sso-box .last-course .last-course-meta { margin-left: 15px; }
+#docebo-sso-box .last-course .last-course-meta h4 {margin: 0 0 10px; font-weight: 400; font-size: 13px; border: none; box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none;}
+#docebo-sso-box .last-course .progress {width: 100%; height: 10px; background: #ccc;}
+#docebo-sso-box .last-course .bar{height: 10px; background: #85b200;}
+a.docebo-button {padding: 7px 10px; text-decoration: none; font-weight: 700;}
+
+/* --------------------------------------------------- */
+/* My Courses courseblock
+/* --------------------------------------------------- */
+.cblock-element {float: left; margin: 0 15px 15px 0; border-radius: 4px; overflow: hidden;}
+.cblock-element br {display: none;}
+.cblock-element a {color: #fff; text-decoration: none;}
+.cblock-element a:hover {color: #fff; text-decoration: none;}
+.cblock-element p {margin-bottom: 0;}
+.cblock-element .coursename { width:100%; /*height: 35px;*/ margin: 0; background: rgba(0,0,0,0.75); position: absolute; left:0; bottom: 0; display:block; color: #fff; text-decoration: none;}
+.cblock-element .coursename .coursename-spacer{
+	margin: 10px;
+}
+.cblock-element .course-status-icon{
+	position: absolute;
+	top:0;
+	right:0;
+	z-index: 1;
+	box-shadow: none;
+	border-radius: 0;
+}

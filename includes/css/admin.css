@@ -1,0 +1,99 @@
+/* Back-end styles
+	
+	@package
+	@Official Docebo plugin for WordPress	
+	
+*/
+
+#icon-docebo-settings {background: url(../images/docebo_settings.png) 0 0 no-repeat;}
+
+#docebo-settings-panel {float: left; width: 60%; margin-right: 30px;}
+#docebo-preview-panel {float: left; width: 30%; min-width: 300px;}
+
+.clear {clear: both;}
+.clearfix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden; font-size: 0;}
+
+/* --------------------------------------------------- */
+/* Columns and alignments
+/* --------------------------------------------------- */
+.one-half {float: left; width: 45%; margin-right: 5%;}
+.column-last {margin-right: 0; clear: right;}
+.margintop0 {margin-top: 0;}
+.marginbottom0 {margin-bottom: 0;}
+
+/* --------------------------------------------------- */
+/* Form elements
+/* --------------------------------------------------- */
+.docebo label.textinput {float: left; width: 200px; background-color: transparent; font-weight: 700; margin: 0;}
+.wrap.docebo input[type="text"], .wrap.docebo input[type="email"], .wrap.docebo input[type="password"]  {width: 260px;}
+.field-after {background: #eee; padding: 3px 5px; border: 1px solid #ccc; border-radius: 0 4px 4px 0; margin-left: -4px; font-weight: 700;}
+.colorpckr {position: absolute; left: 15%; background: #fff; padding: 10px; box-shadow: 0 0 4px #ccc;}
+
+label.error {position: absolute; margin-left: 250px; background: #d80100; color: #fff; padding: 5px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
+p.error {background: #d80100; color: #fff; padding: 5px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
+p.docebo-note {background: #21759b; color: #fff; padding: 5px; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
+p.docebo-note a, p.error a {color: #fff; text-decoration: underline;}
+p.docebo-note a:hover, p.error a:hover {color: #fff; text-decoration: none;}
+
+/* --------------------------------------------------- */
+/* SSO Box preview
+/* --------------------------------------------------- */
+#docebo-sso-box {border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
+#docebo-sso-box .sso-container {padding: 15px;}
+#docebo-sso-box .course-overview {margin: 10px 0;}
+#docebo-sso-box h3 {margin-top: 0; font-size: 18px;}
+#docebo-sso-box h4 {margin-top: 0; margin-bottom: 10px; font-size: 15px;  padding-bottom: 5px; 
+	border-bottom: 1px solid #ccc; -moz-box-shadow: 0px 1px 0px #fff; -webkit-box-shadow: 0px 1px 0px #fff; box-shadow: 0px 1px 0px #fff;}
+#docebo-sso-box img {width: 50px; height: 50px; padding: 1px; background: #fff; border: 1px solid #ccc; float: left;}
+#docebo-sso-box .new-courses {background: url(../images/icon_new_courses.png) left center no-repeat; padding-left: 25px; line-height: 24px;}
+#docebo-sso-box .inprogress-courses {background: url(../images/icon_in_progress.png) left center no-repeat; padding-left: 25px; line-height: 24px;}
+#docebo-sso-box .completed-courses {background: url(../images/icon_completed.png) left center no-repeat; padding-left: 25px; line-height: 24px;}
+#docebo-sso-box span.number {float: right; font-weight: 700;}
+#docebo-sso-box .last-course {float: left; width: 100%; margin-bottom: 35px;}
+#docebo-sso-box .last-course .last-course-meta { margin-left: 15px; }
+#docebo-sso-box .last-course .last-course-meta h4 {margin: 0 0 10px; font-weight: 400; font-size: 13px; border: none; box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none;}
+#docebo-sso-box .last-course .progress {width: 100%; height: 10px; background: #ccc;}
+#docebo-sso-box .last-course .bar{height: 10px; background: #85b200;}
+a.docebo-button {padding: 7px 10px; text-decoration: none; font-weight: 700;}
+
+/* --------------------------------------------------- */
+/* Login Box preview
+/* --------------------------------------------------- */
+#docebo-login-box {border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
+#docebo-login-box .login-container {padding: 20px;}
+#docebo-login-box .login-container .logo-holder {width: 100%; text-align: center; padding: 10px 0;}
+#docebo-login-box .login-container .logo-holder img {max-width: 170px;}
+#docebo-login-box .docebo-text {width: 100%; background: #f9f9f9; border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0; border: none; padding: 7px; font-size: 14px; line-height: 20px; margin-bottom: 10px;
+	box-shadow: 1px 1px 2px #eee inset; -moz-box-shadow: 1px 1px 2px #eee inset; -webkit-box-shadow: 1px 1px 2px #eee inset;} 
+#docebo-login-box input.docebo-button {padding: 7px 10px; font-size: 14px; text-decoration: none; font-weight: 700; margin-top: 10px; cursor: pointer;
+	border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
+
+/* --------------------------------------------------- */
+/* Courseblock preview
+/* --------------------------------------------------- */
+.cblock-element {float: left; margin: 0 15px 15px 0; border-radius: 4px; overflow: hidden; position: relative;}
+.cblock-element a {float: left; color: #fff; text-decoration: none;}
+.cblock-element a:hover {color: #fff; text-decoration: none;}
+.cblock-element img {z-index: -1; position: relative;}
+.cblock-element p.coursename { width:100%; height: 35px; padding: 10px; margin: 0; background: rgba(0,0,0,0.75); position: absolute; left:0; bottom: 0; display:block; color: #fff; text-decoration: none;}
+.cblock-element .course-status-icon{
+	position: absolute;
+	top:0;
+	right:0;
+	z-index: 1;
+}
+
+/* --------------------------------------------------- */
+/* General settings
+/* --------------------------------------------------- */
+.sync-scenarios-wrapper{
+	position:relative;
+}
+.sync-scenarios-wrapper label.textinput{
+	position:absolute;
+	top:0;
+	left:0;
+}
+.sync-scenarios-wrapper input[type=radio]{
+	margin-left:200px;
+}
