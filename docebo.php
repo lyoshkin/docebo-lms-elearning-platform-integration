@@ -771,6 +771,11 @@ function docebo_init() {
 						}
 					}
 				}
+				
+				if($course_count==0){
+					_e('No courses available', 'docebo');
+				}
+				
 				echo '<div class="clear"></div>';
 				?>
 		
@@ -1137,12 +1142,33 @@ function docebo_init() {
 	/* Add and save Docebo Plugin settings data
 	/* ------------------------------------------------------*/
 	function dwp_register_settings() {
-		register_setting('dwp_settings_group', 'dwp_settings'); // General settings
+		register_setting('dwp_settings_group', 'dwp_settings', 'dwp_preprocess_saved_settings'); // General settings
 		register_setting('dwp_course_settings_group', 'dwp_course_settings'); // My Courses settings
 		register_setting('dwp_sso_settings_group', 'dwp_sso_settings'); // SSO settings 
 		register_setting('dwp_login_settings_group', 'dwp_login_settings'); // Login Box settings 
 	}
 	add_action('admin_init', 'dwp_register_settings');
+	
+	/**
+	 * Processing of saved Settings fields before actually saving them to database
+	 * @param array $settings - associative array of saved settings from POST
+	 * @return array - associative array of sanitized settings to be saved
+	 */
+	function dwp_preprocess_saved_settings($settings){
+		
+		// Remove unnecessary things from the LMS url
+		if(is_array($settings) && $settings['docebo_address']){
+			$settings['docebo_address'] = str_ireplace(array(
+				'http://', 'http:', 'http//'
+				), '', $settings['docebo_address']);
+		}
+		
+		// Trim spaces from beginning and end of settings values
+		foreach($settings as $key => &$value){
+			$value = trim($value);
+		}
+		return $settings;
+	}
 	
 } 
 // end the docebo_init() function
@@ -1513,9 +1539,12 @@ function shortcode_docebo_mycourses ( $atts, $content = null ) {
 				$course_count++;
 			}
 		}
-	}else{
-		$output .= '<p>'.__('No courses', 'docebo').'</p>';
 	}
+	
+	if($course_count==0){
+		$output .= '<p>'.__('No courses available', 'docebo').'</p>';
+	}
+	
 	$output .= '<div class="clear"></div>';
 	
 	return do_shortcode( $output );
