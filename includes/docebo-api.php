@@ -2,7 +2,7 @@
 
 // Calling the Docebo API
 
-class Api {
+class DoceboApi {
 
 	// These will be overwritten from the plugin options in the WordPress admin area
 	
@@ -32,8 +32,11 @@ class Api {
 		
 		$cloudUrl = ((isset($dwp_options['docebo_address']) && !empty($dwp_options['docebo_address'])) ? $dwp_options['docebo_address'] : self::$url);
 		
+		if(stripos($cloudUrl, 'http://')===false && stripos($cloudUrl, 'https://')===false)
+				$cloudUrl = 'http://'.$cloudUrl;
+		
 		if(!empty($cloudUrl)){
-			$host = parse_url('http://'.$cloudUrl, PHP_URL_HOST);
+			$host = parse_url($cloudUrl, PHP_URL_HOST);
 			return array(
 				"Host: " . ($host ? $host : ''),
 				"Content-Type: multipart/form-data",
@@ -50,7 +53,16 @@ class Api {
 		global $dwp_options;
 		
 		// Import the URL from the plugin settings or from this file otherwise
-		$cloudUrl = 'http://'.((isset($dwp_options['docebo_address']) && !empty($dwp_options['docebo_address'])) ? $dwp_options['docebo_address'] : self::$url);
+		$cloudUrl = ((isset($dwp_options['docebo_address']) && !empty($dwp_options['docebo_address'])) ? $dwp_options['docebo_address'] : self::$url);
+		
+		if(!$cloudUrl){
+			return false;
+		}else{
+			$cloudUrl = trim($cloudUrl);
+		}
+		
+		$cloudUrl = str_ireplace('http://', '', $cloudUrl);
+		$cloudUrl = str_ireplace('https://', '', $cloudUrl);
 
 		$curl = curl_init();
 
@@ -64,6 +76,8 @@ class Api {
 			CURLOPT_POST=>1,
 			CURLOPT_POSTFIELDS=>$data_params,
 			CURLOPT_CONNECTTIMEOUT=>5, // Timeout to 5 seconds
+			CURLOPT_SSL_VERIFYPEER=>false,
+			CURLOPT_SSL_VERIFYHOST=>false,
 		);
 		curl_setopt_array($curl, $opt);
 
@@ -82,11 +96,21 @@ class Api {
 		
 		$cloudUrl = ((isset($dwp_options['docebo_address']) && !empty($dwp_options['docebo_address'])) ? $dwp_options['docebo_address'] : self::$url);
 		$sso_key = ((isset($dwp_options['docebo_sso']) && !empty($dwp_options['docebo_sso'])) ? $dwp_options['docebo_sso'] : self::$sso);
+		
+		if(!$cloudUrl){
+			return false;
+		}else{
+			$cloudUrl = trim($cloudUrl);
+		}
+		
+		// Check if we included the protocol in the cloud URL and prepend 'http://' if not
+		if(stripos($cloudUrl, 'http://')===false && stripos($cloudUrl, 'https://')===false)
+			$cloudUrl = 'http://'.$cloudUrl;
 
 		$time = time();
 		$token = md5($user.','.$time.','.$sso_key);
 
-		return 'http://' . $cloudUrl . '/doceboLms/index.php?modname=login&op=confirm&login_user=' . strtolower($user) . '&time=' . $time . '&token=' . $token;
+		return $cloudUrl . '/doceboLms/index.php?auth_regen=1&modname=login&op=confirm&login_user=' . strtolower($user) . '&time=' . $time . '&token=' . $token;
 
 	}
 
