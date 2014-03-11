@@ -1,4 +1,4 @@
-﻿=== Docebo LMS E-Learning Platform Integration ===
+=== Docebo LMS E-Learning Platform Integration ===
 Contributors: Docebo SRL
 Donate link: 
 Tags: Docebo,elearning,e­learning,lms,learning management system,elearning platform,e­learning platform,training,online training
@@ -58,4 +58,3 @@ The Docebo E-Learning platform comes with a Courses Marketplace where you can bu
 
 
 == Arbitrary section 1 ==
-

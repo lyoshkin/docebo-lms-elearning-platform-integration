@@ -3,7 +3,7 @@
 Plugin Name: Docebo
 Description: Integrate your Docebo account and users with a WordPress-powered website 
 Plugin URI: http://wordpress.org/plugins/docebo
-Version: 1.0
+Version: 1.0.3
 Author: Docebo Srl.
 Author URI: http://www.docebo.com
 Textdomain: docebo
@@ -93,12 +93,18 @@ function docebo_init() {
 			$dwp_login_options = get_option('dwp_login_settings');
 			
 			// Default color values
-			$dwp_login_options['text_color'] = $dwp_login_options['text_color'] ? $dwp_login_options['text_color'] : '#111';
-			$dwp_login_options['border_color'] = $dwp_login_options['border_color'] ? $dwp_login_options['border_color'] : '#333';
-			$dwp_login_options['bg_color'] = $dwp_login_options['bg_color'] ? $dwp_login_options['bg_color'] : '#fff';
-			$dwp_login_options['buttonbg_color'] = $dwp_login_options['buttonbg_color'] ? $dwp_login_options['buttonbg_color'] : '#fff';
-			$dwp_login_options['buttonborder_color'] = $dwp_login_options['buttonborder_color'] ? $dwp_login_options['buttonborder_color'] : '#333';
-			$dwp_login_options['buttontext_color'] = $dwp_login_options['buttontext_color'] ? $dwp_login_options['buttontext_color'] : '#111';
+			$dwp_login_options['text_color'] = isset($dwp_login_options['text_color']) && $dwp_login_options['text_color'] ? $dwp_login_options['text_color'] : '#111';
+			$dwp_login_options['border_color'] = isset($dwp_login_options['border_color']) && $dwp_login_options['border_color'] ? $dwp_login_options['border_color'] : '#333';
+			$dwp_login_options['bg_color'] = isset($dwp_login_options['bg_color']) && $dwp_login_options['bg_color'] ? $dwp_login_options['bg_color'] : '#fff';
+			$dwp_login_options['buttonbg_color'] = isset($dwp_login_options['buttonbg_color']) && $dwp_login_options['buttonbg_color'] ? $dwp_login_options['buttonbg_color'] : '#fff';
+			$dwp_login_options['buttonborder_color'] = isset($dwp_login_options['buttonborder_color']) && $dwp_login_options['buttonborder_color'] ? $dwp_login_options['buttonborder_color'] : '#333';
+			$dwp_login_options['buttontext_color'] = isset($dwp_login_options['buttontext_color']) && $dwp_login_options['buttontext_color'] ? $dwp_login_options['buttontext_color'] : '#111';
+			
+			$dwp_login_options['login_text'] = isset($dwp_login_options['login_text']) && $dwp_login_options['login_text'] ? $dwp_login_options['login_text'] : '';
+			$dwp_login_options['login_box_width'] = isset($dwp_login_options['login_box_width']) && $dwp_login_options['login_box_width'] ? $dwp_login_options['login_box_width'] : '';
+			$dwp_login_options['login_box_height'] = isset($dwp_login_options['login_box_height']) && $dwp_login_options['login_box_height'] ? $dwp_login_options['login_box_height'] : '';
+			$dwp_login_options['login_button_text'] = isset($dwp_login_options['login_button_text']) && $dwp_login_options['login_button_text'] ? $dwp_login_options['login_button_text'] : '';
+			$dwp_login_options['login_button_pos'] = isset($dwp_login_options['login_button_pos']) && $dwp_login_options['login_button_pos'] ? $dwp_login_options['login_button_pos'] : 'left';
 		
 			ob_start(); ?>
 
@@ -122,7 +128,7 @@ function docebo_init() {
 					
 						<fieldset>
 							<label class="textinput" for="dwp_login_settings[logo]"><?php _e('Login Box logo', 'docebo'); ?></label>
-							<input type="text" id="logo_url" name="dwp_login_settings[logo]" value="<?php echo esc_url( $dwp_login_options['logo'] ); ?>" />  
+							<input type="text" id="logo_url" name="dwp_login_settings[logo]" value="<?php echo isset($dwp_login_options['logo']) ? esc_url($dwp_login_options['logo']) : ""; ?>" />  
 							<input id="upload_logo_button" type="button" class="button" value="<?php _e( 'Upload Logo', 'docebo' ); ?>" /> <em><?php _e('Leave this field empty to use Docebo logo', 'docebo'); ?></em>
 						</fieldset>
 						<br class="clear">
@@ -161,11 +167,11 @@ function docebo_init() {
 						<fieldset>
 							<label class="textinput" for="dwp_login_settings[login_button_pos]"><?php _e('Button position', 'docebo'); ?></label>
 							<input type="radio" id="dwp_login_settings[login_button_pos]"  name="dwp_login_settings[login_button_pos]" class="textinput" 
-								value="left" <?php if (isset($dwp_login_options['login_button_pos']) && $dwp_login_options['login_button_pos'] == 'left') { echo 'checked="checked"'; } ?> /><?php _e('Left', 'docebo');?>
+								value="left" <?php if ($dwp_login_options['login_button_pos'] == 'left') { echo 'checked="checked"'; } ?> /><?php _e('Left', 'docebo');?>
 							<input type="radio" id="dwp_login_settings[login_button_pos]"  name="dwp_login_settings[login_button_pos]" class="textinput" 
-								value="center" <?php if (isset($dwp_login_options['login_button_pos']) && $dwp_login_options['login_button_pos'] == 'center') { echo 'checked="checked"'; } ?> /><?php _e('Center', 'docebo');?>
+								value="center" <?php if ($dwp_login_options['login_button_pos'] == 'center') { echo 'checked="checked"'; } ?> /><?php _e('Center', 'docebo');?>
 							<input type="radio" id="dwp_login_settings[login_button_pos]"  name="dwp_login_settings[login_button_pos]" class="textinput" 
-								value="right" <?php if (isset($dwp_login_options['login_button_pos']) && $dwp_login_options['login_button_pos'] == 'right') { echo 'checked="checked"'; } ?> /><?php _e('Right', 'docebo');?><br/>
+								value="right" <?php if ($dwp_login_options['login_button_pos'] == 'right') { echo 'checked="checked"'; } ?> /><?php _e('Right', 'docebo');?><br/>
 						</fieldset>
 						<br class="clear">
 			
@@ -427,12 +433,21 @@ function docebo_init() {
 			$dwp_sso_options = get_option('dwp_sso_settings');
 			
 			// Default color values
-			$dwp_sso_options['text_color'] = $dwp_sso_options['text_color'] ? $dwp_sso_options['text_color'] : '#111';
-			$dwp_sso_options['border_color'] = $dwp_sso_options['border_color'] ? $dwp_sso_options['border_color'] : '#333';
-			$dwp_sso_options['bg_color'] = $dwp_sso_options['bg_color'] ? $dwp_sso_options['bg_color'] : '#fff';
-			$dwp_sso_options['buttonbg_color'] = $dwp_sso_options['buttonbg_color'] ? $dwp_sso_options['buttonbg_color'] : '#fff';
-			$dwp_sso_options['buttonborder_color'] = $dwp_sso_options['buttonborder_color'] ? $dwp_sso_options['buttonborder_color'] : '#333';
-			$dwp_sso_options['buttontext_color'] = $dwp_sso_options['buttontext_color'] ? $dwp_sso_options['buttontext_color'] : '#111';
+			$dwp_sso_options['title_color'] = isset($dwp_sso_options['title_color']) && $dwp_sso_options['title_color'] ? $dwp_sso_options['title_color'] : '#111';
+			$dwp_sso_options['text_color'] = isset($dwp_sso_options['text_color']) && $dwp_sso_options['text_color'] ? $dwp_sso_options['text_color'] : '#111';
+			$dwp_sso_options['border_color'] = isset($dwp_sso_options['border_color']) && $dwp_sso_options['border_color'] ? $dwp_sso_options['border_color'] : '#333';
+			$dwp_sso_options['bg_color'] = isset($dwp_sso_options['bg_color']) && $dwp_sso_options['bg_color'] ? $dwp_sso_options['bg_color'] : '#fff';
+			$dwp_sso_options['buttonbg_color'] = isset($dwp_sso_options['buttonbg_color']) && $dwp_sso_options['buttonbg_color'] ? $dwp_sso_options['buttonbg_color'] : '#fff';
+			$dwp_sso_options['buttonborder_color'] = isset($dwp_sso_options['buttonborder_color']) && $dwp_sso_options['buttonborder_color'] ? $dwp_sso_options['buttonborder_color'] : '#333';
+			$dwp_sso_options['buttontext_color'] = isset($dwp_sso_options['buttontext_color']) && $dwp_sso_options['buttontext_color'] ? $dwp_sso_options['buttontext_color'] : '#111';
+			
+			$dwp_options['docebo_scenario'] = isset($dwp_options['docebo_scenario']) ? $dwp_options['docebo_scenario'] : '';
+			$dwp_sso_options['sso_button_pos'] = isset($dwp_sso_options['sso_button_pos']) && $dwp_sso_options['sso_button_pos'] ? $dwp_sso_options['sso_button_pos'] : 'left';
+			$dwp_sso_options['show_enrolled'] = isset($dwp_sso_options['show_enrolled']) && $dwp_sso_options['show_enrolled'] ? $dwp_sso_options['show_enrolled'] : '';
+			$dwp_sso_options['show_last_attended'] = isset($dwp_sso_options['show_last_attended']) && $dwp_sso_options['show_last_attended'] ? $dwp_sso_options['show_last_attended'] : '';
+			$dwp_sso_options['box_shadow'] = isset($dwp_sso_options['box_shadow']) && $dwp_sso_options['box_shadow'] ? $dwp_sso_options['box_shadow'] : '';
+			$dwp_sso_options['sso_title'] = isset($dwp_sso_options['sso_title']) && $dwp_sso_options['sso_title'] ? $dwp_sso_options['sso_title'] : '';
+			$dwp_sso_options['sso_text'] = isset($dwp_sso_options['sso_text']) && $dwp_sso_options['sso_text'] ? $dwp_sso_options['sso_text'] : '';
 			
 			$button_link = DoceboApi::sso(dwp_get_docebo_username());
 				
@@ -469,31 +484,31 @@ function docebo_init() {
 			
 						<fieldset>
 							<label class="textinput" for="dwp_sso_settings[sso_title]"><?php _e('Box title', 'docebo'); ?></label>
-							<input type="text" id="dwp_sso_settings[sso_title]"  name="dwp_sso_settings[sso_title]" class="textinput" value="<?php echo ($dwp_sso_options['sso_title'] ? $dwp_sso_options['sso_title'] : __('Courses you are enrolled in', 'docebo')); ?>" />
+							<input type="text" id="dwp_sso_settings[sso_title]"  name="dwp_sso_settings[sso_title]" class="textinput" value="<?php echo (isset($dwp_sso_options['sso_title']) && $dwp_sso_options['sso_title'] ? $dwp_sso_options['sso_title'] : __('Courses you are enrolled in', 'docebo')); ?>" />
 						</fieldset>
 						<br class="clear">
 						
 						<fieldset>
 							<label class="textinput" for="dwp_sso_settings[sso_text]"><?php _e('Intro text', 'docebo'); ?></label>
-							<textarea id="dwp_sso_settings[sso_text]"  name="dwp_sso_settings[sso_text]" class="textinput" rows="4" cols="47"><?php echo $dwp_sso_options['sso_text']; ?></textarea>
+							<textarea id="dwp_sso_settings[sso_text]"  name="dwp_sso_settings[sso_text]" class="textinput" rows="4" cols="47"><?php echo isset($dwp_sso_options['sso_text']) ? $dwp_sso_options['sso_text'] : ''; ?></textarea>
 						</fieldset>
 						<br class="clear">
 			
 						<fieldset>
 							<label class="textinput" for="dwp_sso_settings[sso_box_width]"><?php _e('Box width', 'docebo'); ?></label>
-							<input type="text" id="dwp_sso_settings[sso_box_width]" name="dwp_sso_settings[sso_box_width]" class="textinput" value="<?php echo $dwp_sso_options['sso_box_width']; ?>" /><span class="field-after">px</span>
+							<input type="text" id="dwp_sso_settings[sso_box_width]" name="dwp_sso_settings[sso_box_width]" class="textinput" value="<?php echo isset($dwp_sso_options['sso_box_width']) ? $dwp_sso_options['sso_box_width'] : ''; ?>" /><span class="field-after">px</span>
 						</fieldset>
 						<br class="clear">
 						
 						<fieldset>
 							<label class="textinput" for="dwp_sso_settings[sso_box_height]"><?php _e('Box height', 'docebo'); ?></label>
-							<input type="text" id="dwp_sso_settings[sso_box_height]" name="dwp_sso_settings[sso_box_height]" class="textinput" value="<?php echo $dwp_sso_options['sso_box_height']; ?>" /><span class="field-after">px</span>
+							<input type="text" id="dwp_sso_settings[sso_box_height]" name="dwp_sso_settings[sso_box_height]" class="textinput" value="<?php echo isset($dwp_sso_options['sso_box_height']) ? $dwp_sso_options['sso_box_height'] : ''; ?>" /><span class="field-after">px</span>
 						</fieldset>
 						<br class="clear">
 			
 						<fieldset>
 							<label class="textinput" for="dwp_sso_settings[sso_button_text]"><?php _e('SSO button text', 'docebo'); ?></label>
-							<input type="text" id="dwp_sso_settings[sso_button_text]" name="dwp_sso_settings[sso_button_text]" class="textinput" value="<?php echo $dwp_sso_options['sso_button_text']; ?>" />
+							<input type="text" id="dwp_sso_settings[sso_button_text]" name="dwp_sso_settings[sso_button_text]" class="textinput" value="<?php echo isset($dwp_sso_options['sso_button_text']) ? $dwp_sso_options['sso_button_text'] : ''; ?>" />
 						</fieldset>
 						<br class="clear">
 						
@@ -658,7 +673,7 @@ function docebo_init() {
 					
 					<?php // Let's create the SSO box, first call the API
 						$params = array(
-							'ext_user' => $current_user->ID,
+							'ext_user' => isset($current_user->ID) ? $current_user->ID : null,
 							'ext_user_type' => 'wordpress',
 						);
 						$data = DoceboApi::call('user/getstat/', $params); 		
@@ -694,7 +709,7 @@ function docebo_init() {
 							<?php } ?>
 						
 							<div class="cloud-button" style="text-align: <?php echo $dwp_sso_options['sso_button_pos']; ?>;">
-								<a href="<?php echo $button_link; ?>" target="_blank" class="docebo-button" style="background: <?php echo $dwp_sso_options['buttonbg_color'];?>; color: <?php echo $dwp_sso_options['buttontext_color']; ?>; border: 1px solid <?php echo $dwp_sso_options['buttonborder_color']; ?>;"><?php echo ($dwp_sso_options['sso_button_text'] ? $dwp_sso_options['sso_button_text'] : __('SIGN IN', 'docebo')); ?></a>
+								<a href="<?php echo $button_link; ?>" target="_blank" class="docebo-button" style="background: <?php echo $dwp_sso_options['buttonbg_color'];?>; color: <?php echo $dwp_sso_options['buttontext_color']; ?>; border: 1px solid <?php echo $dwp_sso_options['buttonborder_color']; ?>;"><?php echo (isset($dwp_sso_options['sso_button_text']) ? $dwp_sso_options['sso_button_text'] : __('SIGN IN', 'docebo')); ?></a>
 							</div>
 						</div>
 					</div>
@@ -772,7 +787,7 @@ function docebo_init() {
 				<?php 
 				
 				$params = array(
-					'ext_user' => $current_user->ID,
+					'ext_user' => isset($current_user->ID) ? $current_user->ID : null,
 					'ext_user_type' => 'wordpress',
 				);
 				$data = DoceboApi::call('user/userCourses/', $params); 			
@@ -947,7 +962,22 @@ function docebo_init() {
 		
 		// 7. (no menu item) SSO authentication/login page (redirects to the LMS)
 		function dwp_sso_login(){
-			dpw_redirect_to_sso();
+			$auth = DoceboApi::call('auth/authenticate', array(
+				'username' => $_POST['userid'],
+				'password' => $_POST['pwd'],
+			));
+			$auth = json_decode($auth, 1);
+			if($auth && isset($auth['success']) && $auth['success']==true){
+				$token = isset($auth['token']) ? $auth['token'] : false;
+
+				if($token){
+					$restLoginUrl = DoceboApi::createRestAuthLink($_POST['userid'], $token);
+					exit(wp_redirect($restLoginUrl));
+				}
+			}
+
+			exit(wp_redirect(DoceboApi::getCloudUrl().'/lms/?r=site/index&error=2'));
+			// dpw_redirect_to_sso();
 		}
 		
 		// 8. (no menu item) User synchronization processing page (redirects after completion)
@@ -1201,7 +1231,7 @@ function dwp_initial_admin_page_process($value){
 	
 	switch($_REQUEST['page']){
 		case 'docebo-sso-login':
-			dpw_redirect_to_sso();
+			dwp_sso_login();
 			break;
 		case 'docebo-usersync-do':
 			dwp_sync_users_and_redirect();
@@ -1540,7 +1570,7 @@ function shortcode_docebo_mycourses ( $atts, $content = null ) {
 	
 	// Docebo API call
 	$params = array(
-		'ext_user' => $current_user->ID,
+		'ext_user' => isset($current_user->ID) ? $current_user->ID : null,
 		'ext_user_type' => 'wordpress',
 	);
 	$data = DoceboApi::call('user/userCourses/', $params); 			
@@ -1600,18 +1630,27 @@ function shortcode_docebo_sso ( $atts, $content = null ) {
 	$dwp_sso_options = get_option('dwp_sso_settings');
 	
 	// Default color values
-	$dwp_sso_options['text_color'] = $dwp_sso_options['text_color'] ? $dwp_sso_options['text_color'] : '#111';
-	$dwp_sso_options['border_color'] = $dwp_sso_options['border_color'] ? $dwp_sso_options['border_color'] : '#333';
-	$dwp_sso_options['bg_color'] = $dwp_sso_options['bg_color'] ? $dwp_sso_options['bg_color'] : '#fff';
-	$dwp_sso_options['buttonbg_color'] = $dwp_sso_options['buttonbg_color'] ? $dwp_sso_options['buttonbg_color'] : '#fff';
-	$dwp_sso_options['buttonborder_color'] = $dwp_sso_options['buttonborder_color'] ? $dwp_sso_options['buttonborder_color'] : '#333';
-	$dwp_sso_options['buttontext_color'] = $dwp_sso_options['buttontext_color'] ? $dwp_sso_options['buttontext_color'] : '#111';
+	$dwp_sso_options['title_color'] = isset($dwp_sso_options['title_color']) ? $dwp_sso_options['title_color'] : '#111';
+	$dwp_sso_options['text_color'] = isset($dwp_sso_options['text_color']) ? $dwp_sso_options['text_color'] : '#111';
+	$dwp_sso_options['border_color'] = isset($dwp_sso_options['border_color']) ? $dwp_sso_options['border_color'] : '#333';
+	$dwp_sso_options['bg_color'] = isset($dwp_sso_options['bg_color']) ? $dwp_sso_options['bg_color'] : '#fff';
+	$dwp_sso_options['buttonbg_color'] = isset($dwp_sso_options['buttonbg_color']) ? $dwp_sso_options['buttonbg_color'] : '#fff';
+	$dwp_sso_options['buttonborder_color'] = isset($dwp_sso_options['buttonborder_color']) ? $dwp_sso_options['buttonborder_color'] : '#333';
+	$dwp_sso_options['buttontext_color'] = isset($dwp_sso_options['buttontext_color']) ? $dwp_sso_options['buttontext_color'] : '#111';
+	
+	$dwp_sso_options['sso_box_width'] = isset($dwp_sso_options['sso_box_width']) ? $dwp_sso_options['sso_box_width'] : '300';
+	$dwp_sso_options['sso_box_height'] = isset($dwp_sso_options['sso_box_height']) ? $dwp_sso_options['sso_box_height'] : '300';
+	$dwp_sso_options['box_shadow'] = isset($dwp_sso_options['box_shadow']) ? $dwp_sso_options['box_shadow'] : '';
+	$dwp_sso_options['sso_title'] = isset($dwp_sso_options['sso_title']) ? $dwp_sso_options['sso_title'] : '';
+	$dwp_sso_options['sso_text'] = isset($dwp_sso_options['sso_text']) ? $dwp_sso_options['sso_text'] : '';
+	$dwp_sso_options['show_enrolled'] = isset($dwp_sso_options['show_enrolled']) ? $dwp_sso_options['show_enrolled'] : '';
+	$dwp_sso_options['sso_button_pos'] = isset($dwp_sso_options['sso_button_pos']) ? $dwp_sso_options['sso_button_pos'] : 'left';
 	
 	global $current_user;
 	
 	// Docebo API call
 	$params = array(
-		'ext_user' => $current_user->ID,
+		'ext_user' => isset($current_user->ID) ? $current_user->ID : null,
 		'ext_user_type' => 'wordpress',
 	);
 	$data = DoceboApi::call('user/getstat/', $params); 			
@@ -1630,13 +1669,13 @@ function shortcode_docebo_sso ( $atts, $content = null ) {
 	if($dwp_sso_options['show_enrolled']){
 		$output .= '<div class="course-overview">
 						<h4 style="color: ' . $dwp_sso_options['title_color'] . '">' . __('Courses you are enrolled in', 'docebo') . '</h4>
-						<div class="new-courses">New</span><span class="number">' . $course_block->user_courses->new_courses . '</div>
-						<div class="inprogress-courses">In Progress</span><span class="number">' . $course_block->user_courses->in_progress . '</div>
-						<div class="completed-courses">Completed</span><span class="number">' . $course_block->user_courses->completed . '</div>
+						<div class="new-courses">New</span><span class="number">' . (isset($course_block->user_courses) ? $course_block->user_courses->new_courses : 0) . '</div>
+						<div class="inprogress-courses">In Progress</span><span class="number">' . (isset($course_block->user_courses) ? $course_block->user_courses->in_progress : 0) . '</div>
+						<div class="completed-courses">Completed</span><span class="number">' . (isset($course_block->user_courses) ? $course_block->user_courses->completed : 0) . '</div>
 					</div>';
 	}
 							
-	if ( !empty($course_block->last_course) && $dwp_sso_options['show_last_attended']) {
+	if ( isset($course_block->last_course) && !empty($course_block->last_course) && $dwp_sso_options['show_last_attended']) {
 		$output .= '<div class="last-course">
 					<h4 style="color: ' . $dwp_sso_options['title_color'] . '">' . __('Last attended course', 'docebo') . '</h4>
 					<img class="course-thumb" src="' . $course_block->last_course->course_thumbnail . '" />
@@ -1646,7 +1685,7 @@ function shortcode_docebo_sso ( $atts, $content = null ) {
 	}
 	
 	$output .= '<div class="cloud-button" style="text-align: ' . $dwp_sso_options['sso_button_pos'] . '">
-					<a href="' . $button_link . '" target="_blank" class="docebo-button" style="background: ' . $dwp_sso_options['buttonbg_color'] . '; color: ' . $dwp_sso_options['buttontext_color'] . '; border: 1px solid ' . $dwp_sso_options['buttonborder_color'] . ';">' . ($dwp_sso_options['sso_button_text'] ? $dwp_sso_options['sso_button_text'] : __('SIGN IN', 'docebo')) . '</a>
+					<a href="' . $button_link . '" target="_blank" class="docebo-button" style="background: ' . $dwp_sso_options['buttonbg_color'] . '; color: ' . $dwp_sso_options['buttontext_color'] . '; border: 1px solid ' . $dwp_sso_options['buttonborder_color'] . ';">' . (isset($dwp_sso_options['sso_button_text']) ? $dwp_sso_options['sso_button_text'] : __('SIGN IN', 'docebo')) . '</a>
 				</div>
 			</div>
 		</div>';
@@ -1665,12 +1704,20 @@ function shortcode_docebo_login ( $atts, $content = null ) {
 	$dwp_login_options = get_option('dwp_login_settings');
 	
 	// Default color values
-	$dwp_login_options['text_color'] = $dwp_login_options['text_color'] ? $dwp_login_options['text_color'] : '#111';
-	$dwp_login_options['border_color'] = $dwp_login_options['border_color'] ? $dwp_login_options['border_color'] : '#333';
-	$dwp_login_options['bg_color'] = $dwp_login_options['bg_color'] ? $dwp_login_options['bg_color'] : '#fff';
-	$dwp_login_options['buttonbg_color'] = $dwp_login_options['buttonbg_color'] ? $dwp_login_options['buttonbg_color'] : '#fff';
-	$dwp_login_options['buttonborder_color'] = $dwp_login_options['buttonborder_color'] ? $dwp_login_options['buttonborder_color'] : '#333';
-	$dwp_login_options['buttontext_color'] = $dwp_login_options['buttontext_color'] ? $dwp_login_options['buttontext_color'] : '#111';
+	$dwp_login_options['title_color'] = isset($dwp_login_options['title_color']) ? $dwp_login_options['title_color'] : '#111';
+	$dwp_login_options['text_color'] = isset($dwp_login_options['text_color']) ? $dwp_login_options['text_color'] : '#111';
+	$dwp_login_options['border_color'] = isset($dwp_login_options['border_color']) ? $dwp_login_options['border_color'] : '#333';
+	$dwp_login_options['bg_color'] = isset($dwp_login_options['bg_color']) ? $dwp_login_options['bg_color'] : '#fff';
+	$dwp_login_options['buttonbg_color'] = isset($dwp_login_options['buttonbg_color']) ? $dwp_login_options['buttonbg_color'] : '#fff';
+	$dwp_login_options['buttonborder_color'] = isset($dwp_login_options['buttonborder_color']) ? $dwp_login_options['buttonborder_color'] : '#333';
+	$dwp_login_options['buttontext_color'] = isset($dwp_login_options['buttontext_color']) ? $dwp_login_options['buttontext_color'] : '#111';
+	$dwp_login_options['box_shadow'] = isset($dwp_login_options['box_shadow']) ? $dwp_login_options['box_shadow'] : '';
+	
+	$dwp_login_options['login_box_width'] = isset($dwp_login_options['login_box_width']) ? $dwp_login_options['login_box_width'] : '';
+	$dwp_login_options['login_box_height'] = isset($dwp_login_options['login_box_height']) ? $dwp_login_options['login_box_height'] : '';
+	$dwp_login_options['login_button_pos'] = isset($dwp_login_options['login_button_pos']) ? $dwp_login_options['login_button_pos'] : 'left';
+	$dwp_login_options['login_button_text'] = isset($dwp_login_options['login_button_text']) ? $dwp_login_options['login_button_text'] : '';
+	$dwp_login_options['login_text'] = isset($dwp_login_options['login_text']) ? $dwp_login_options['login_text'] : '';
 
 	$output = '<div id="docebo-login-box" style="background: ' . $dwp_login_options['bg_color'] . '; width: ' . $dwp_login_options['login_box_width'] . 'px; height: ' . $dwp_login_options['login_box_height'] . 'px; color: ' . $dwp_login_options['text_color'] . '; border: 1px solid ' . $dwp_login_options['border_color'] . ';';
 					if (isset($dwp_login_options['box_shadow']) && $dwp_login_options['box_shadow'] == 'yes') { 
@@ -1766,7 +1813,7 @@ function dwp_get_docebo_username(){
 		
 		// Get the data for the current WordPress user through the LMS API
 		$params = array(
-			'ext_user' => $current_user->ID,
+			'ext_user' => isset($current_user->ID) ? $current_user->ID : null,
 			'ext_user_type' => 'wordpress',
 		);
 		$data = DoceboApi::call('user/profile/', $params);
@@ -1797,7 +1844,7 @@ function dwp_get_docebo_username(){
 		}else{
 			// This WordPress user's Docebo username is not cached. Retrieve it
 			$params = array(
-				'ext_user' => $current_user->ID,
+				'ext_user' => isset($current_user->ID) ? $current_user->ID : null,
 				'ext_user_type' => 'wordpress',
 			);
 			$data = DoceboApi::call('user/profile/', $params);

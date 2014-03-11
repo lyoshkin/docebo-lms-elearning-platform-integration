@@ -94,24 +94,40 @@ class DoceboApi {
 		
 		global $dwp_options;
 		
-		$cloudUrl = ((isset($dwp_options['docebo_address']) && !empty($dwp_options['docebo_address'])) ? $dwp_options['docebo_address'] : self::$url);
+		$cloudUrl = self::getCloudUrl();
 		$sso_key = ((isset($dwp_options['docebo_sso']) && !empty($dwp_options['docebo_sso'])) ? $dwp_options['docebo_sso'] : self::$sso);
 		
-		if(!$cloudUrl){
+		if(!$cloudUrl)
 			return false;
-		}else{
-			$cloudUrl = trim($cloudUrl);
-		}
-		
-		// Check if we included the protocol in the cloud URL and prepend 'http://' if not
-		if(stripos($cloudUrl, 'http://')===false && stripos($cloudUrl, 'https://')===false)
-			$cloudUrl = 'http://'.$cloudUrl;
 
 		$time = time();
 		$token = md5($user.','.$time.','.$sso_key);
 
 		return $cloudUrl . '/doceboLms/index.php?auth_regen=1&modname=login&op=confirm&login_user=' . strtolower($user) . '&time=' . $time . '&token=' . $token;
 
+	}
+
+	static public function createRestAuthLink($userid, $token){
+		$cloudUrl = self::getCloudUrl();
+		return $cloudUrl . '/lms/?r=site/loginRest&rest_token=' . $token.'&userid='.$userid;
+	}
+
+	static public function getCloudUrl(){
+		global $dwp_options;
+
+		$cloudUrl = ((isset($dwp_options['docebo_address']) && !empty($dwp_options['docebo_address'])) ? $dwp_options['docebo_address'] : self::$url);
+
+		if(!$cloudUrl){
+			return false;
+		}else{
+			$cloudUrl = trim($cloudUrl);
+		}
+
+		// Check if we included the protocol in the cloud URL and prepend 'http://' if not
+		if(stripos($cloudUrl, 'http://')===false && stripos($cloudUrl, 'https://')===false)
+			$cloudUrl = 'http://'.$cloudUrl;
+
+		return $cloudUrl;
 	}
 
 }
