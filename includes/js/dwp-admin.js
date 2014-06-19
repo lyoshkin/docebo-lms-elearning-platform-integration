@@ -11,5 +11,7 @@ jQuery(document).ready(function() {
 		jQuery('#logo_url').val(image_url);  
 		tb_remove();  
 	};
+
+	jQuery('.ie8fix').show().bgdSize('cover');
 	
 });

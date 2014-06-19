@@ -59,6 +59,8 @@ function docebo_init() {
 	/* --------------------------------------------------- */
 		function dwp_load_frontend_scripts() {
 			wp_enqueue_style('dwp-front', plugin_dir_url( __FILE__ ) . 'includes/css/front.css'); // Front-end stylesheet
+			wp_enqueue_script('bgdsize',  plugin_dir_url( __FILE__ ) . 'includes/js/bgdsize.js', array('jquery'));
+			wp_enqueue_script('dwp-frontend-js',  plugin_dir_url( __FILE__ ) . 'includes/js/frontend.js', array('bgdsize', 'jquery'));
 		}
 		add_action('wp_enqueue_scripts', 'dwp_load_frontend_scripts');
 
@@ -68,10 +70,11 @@ function docebo_init() {
 		function dwp_load_admin_scripts() {
 			global $pagenow;
 			if ($pagenow == 'admin.php') {
+				wp_enqueue_script('bgdsize',  plugin_dir_url( __FILE__ ) . 'includes/js/bgdsize.js', array('jquery'));
 				wp_enqueue_script('dwp-admin-script', plugin_dir_url( __FILE__ ) . 'includes/js/dwp-admin.js'); // Admin dashboard javascript
 				wp_enqueue_style('dwp-admin-style', plugin_dir_url( __FILE__ ) . 'includes/css/admin.css'); // Admin dashboard stylesheet
 			}
-		
+
 			wp_enqueue_script('thickbox'); // Thickbox JS (for image upload) 
 			wp_enqueue_style('thickbox'); // Thichbox CSS (for image upload)
 			wp_enqueue_script('media-upload'); // Media upload script 
@@ -414,6 +417,7 @@ function docebo_init() {
 				// We should call an old API method for backward
 				// compatibility in case the new method is not yet
 				// present in the currently called Docebo LMS.
+				var_dump(DoceboApi::call('user/count', array()));
 				if(!$apiStatus){
 					$testApiCall = json_decode(DoceboApi::call('user/count', array()), true);
 					if(isset($testApiCall['count']))
@@ -790,10 +794,8 @@ function docebo_init() {
 					'ext_user' => isset($current_user->ID) ? $current_user->ID : null,
 					'ext_user_type' => 'wordpress',
 				);
-				$data = DoceboApi::call('user/userCourses/', $params); 			
-				
+				$data = DoceboApi::call('user/userCourses/', $params);
 				$course_block = json_decode($data);
-	
 				$course_count = 0;
 				$num_courses_displayed = (isset($dwp_course_options['cblock_amount']) ? (int)$dwp_course_options['cblock_amount'] : 0);
 				$display_all_courses = ($num_courses_displayed==0);
@@ -819,6 +821,10 @@ function docebo_init() {
 									}
 									echo '<a target="_blank" href="' . DoceboApi::sso(dwp_get_docebo_username()) . '&id_course=' . $courses->course_info->course_id. '">
 											<div style="width:' . $dwp_course_options['cblock_width'] . 'px; height:' . $dwp_course_options['cblock_width'] . 'px; background:url(\''.$courses->course_info->course_thumbnail.'\'); background-size: cover; position: relative; background-position: center;">
+													<!-- IE8 and below dirty fix for background-size:cover -->
+													<!--[if lte IE 8]>
+														<img src="'.$courses->course_info->course_thumbnail.'" class="ie8fix" />
+													<![endif]-->
 												<p class="coursename">' . $courses->course_info->course_name . '</p>
 											</div>
 
@@ -1573,9 +1579,9 @@ function shortcode_docebo_mycourses ( $atts, $content = null ) {
 		'ext_user' => isset($current_user->ID) ? $current_user->ID : null,
 		'ext_user_type' => 'wordpress',
 	);
-	$data = DoceboApi::call('user/userCourses/', $params); 			
+	$data = DoceboApi::call('user/userCourses/', $params);
 	$course_block = json_decode($data);
-	
+
 	$num_courses_displayed = (isset($dwp_course_options['cblock_amount']) ? (int)$dwp_course_options['cblock_amount'] : 0);
 	$display_all_courses = ($num_courses_displayed==0);
 
@@ -1599,7 +1605,17 @@ function shortcode_docebo_mycourses ( $atts, $content = null ) {
 						}
 
 						$output .= '<a target="_blank" href="' . DoceboApi::sso(dwp_get_docebo_username()) . '&id_course=' . $courses->course_info->course_id. '">
-										<div style="width:' . $dwp_course_options['cblock_width'] . 'px; height:' . $dwp_course_options['cblock_width'] . 'px; background:url(\''.$courses->course_info->course_thumbnail.'\'); background-size: cover; position: relative; background-position: center;">
+										<div class="course-thumb" style="width:' . $dwp_course_options['cblock_width'] . 'px; height:' . $dwp_course_options['cblock_width'] . 'px;
+													background:url(\''.$courses->course_info->course_thumbnail.'\');
+													background-size: cover;
+													background-position: center;
+													position: relative;">
+
+													<!-- IE8 and below dirty fix for background-size:cover -->
+													<!--[if lte IE 8]>
+														<img src="'.$courses->course_info->course_thumbnail.'" class="ie8fix" />
+													<![endif]-->
+
 											<div class="coursename">
 												<div class="coursename-spacer">
 													' . $courses->course_info->course_name . '

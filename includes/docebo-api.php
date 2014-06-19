@@ -68,6 +68,7 @@ class DoceboApi {
 
 		$hash_info = self::getHash($data_params);
 		$http_header =self::getDefaultHeader($hash_info['x_auth']);
+		// var_dump('Sent from WP', $data_params, $hash_info);
 
 		$opt = array(
 			CURLOPT_URL=>$cloudUrl . '/api/' . $action,
@@ -83,6 +84,8 @@ class DoceboApi {
 
 		// $output contains the output string
 		$output = curl_exec($curl);
+
+		// echo 'LMS response: '.$output.'<br/><br/>';
 
 		// it closes the session
 		curl_close($curl);

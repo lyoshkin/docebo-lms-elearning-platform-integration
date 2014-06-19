@@ -107,3 +107,8 @@ a.docebo-button {padding: 7px 10px; text-decoration: none; font-weight: 700;}
 	box-shadow: none;
 	border-radius: 0;
 }
+
+img.ie8fix{
+	max-width: none;
+	display: none;
+}
