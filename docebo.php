@@ -417,7 +417,6 @@ function docebo_init() {
 				// We should call an old API method for backward
 				// compatibility in case the new method is not yet
 				// present in the currently called Docebo LMS.
-				var_dump(DoceboApi::call('user/count', array()));
 				if(!$apiStatus){
 					$testApiCall = json_decode(DoceboApi::call('user/count', array()), true);
 					if(isset($testApiCall['count']))
@@ -452,7 +451,9 @@ function docebo_init() {
 			$dwp_sso_options['box_shadow'] = isset($dwp_sso_options['box_shadow']) && $dwp_sso_options['box_shadow'] ? $dwp_sso_options['box_shadow'] : '';
 			$dwp_sso_options['sso_title'] = isset($dwp_sso_options['sso_title']) && $dwp_sso_options['sso_title'] ? $dwp_sso_options['sso_title'] : '';
 			$dwp_sso_options['sso_text'] = isset($dwp_sso_options['sso_text']) && $dwp_sso_options['sso_text'] ? $dwp_sso_options['sso_text'] : '';
-			
+			$dwp_sso_options['sso_box_width'] = isset($dwp_sso_options['sso_box_width']) ? $dwp_sso_options['sso_box_width'] : '300';
+			$dwp_sso_options['sso_box_height'] = isset($dwp_sso_options['sso_box_height']) ? $dwp_sso_options['sso_box_height'] : '300';
+
 			$button_link = DoceboApi::sso(dwp_get_docebo_username());
 				
 			ob_start(); ?>
@@ -686,7 +687,7 @@ function docebo_init() {
 						$button_link = DoceboApi::sso(dwp_get_docebo_username()); 
 					?>
 					<div id="docebo-sso-box" 
-						style="background: <?php echo $dwp_sso_options['bg_color'];?>; width: <?php echo $dwp_sso_options['sso_box_width'];?>px; height: <?php echo $dwp_sso_options['sso_box_height'];?>px; color: <?php echo $dwp_sso_options['text_color']; ?>; border: 1px solid <?php echo $dwp_sso_options['border_color']; ?>; <?php if ($dwp_sso_options['box_shadow'] == 'yes') { echo 'box-shadow: 0 0 8px rgba(0,0,0,0.20)'; } ?>">
+						style="background: <?php echo $dwp_sso_options['bg_color'];?>; width: <?php echo $dwp_sso_options['sso_box_width'];?>px; height: <?php echo isset($dwp_sso_options['sso_box_height']) ? $dwp_sso_options['sso_box_height'] : null;?>px; color: <?php echo $dwp_sso_options['text_color']; ?>; border: 1px solid <?php echo $dwp_sso_options['border_color']; ?>; <?php if ($dwp_sso_options['box_shadow'] == 'yes') { echo 'box-shadow: 0 0 8px rgba(0,0,0,0.20)'; } ?>">
 						<div class="sso-container">
 							<h3 style="color: <?php echo $dwp_sso_options['title_color'];?>"><?php echo $dwp_sso_options['sso_title'];?></h3>
 							<?php if($dwp_sso_options['sso_text']) { echo '<p>' . $dwp_sso_options['sso_text'] . '</p>'; } ?>
@@ -1011,6 +1012,12 @@ function docebo_init() {
 		$userdata['ext_user'] = $user->ID;
 		$userdata['ext_user_type'] = 'wordpress';
 
+		// URL encoding is necessary because otherwise "+" is converted to a space
+		// on the receiving side, which breaks emails and usernames
+		foreach($userdata as &$elem){
+			$elem = urlencode($elem);
+		}
+
 		if($dwp_options['docebo_scenario']=='user_scenario2'){
 			// User sync is enabled
 			$data = DoceboApi::call('user/create/', $userdata);
@@ -1037,6 +1044,12 @@ function docebo_init() {
 		$userdata['ext_user_type'] = 'wordpress';
 		$userdata['single_user'] = 'true';
 		$userdata['valid'] = '1';
+
+		// URL encoding is necessary because otherwise "+" is converted to a space
+		// on the receiving side, which breaks emails and usernames
+		foreach($userdata as &$elem){
+			$elem = urlencode($elem);
+		}
 
 		if($dwp_options['docebo_scenario']=='user_scenario2'){
 			// User sync is enabled
@@ -1119,7 +1132,7 @@ function docebo_init() {
 		}
 
 		if (!empty($userdata)) {
-			$sendData = array('users'=>json_encode($userdata));
+			$sendData = array('users'=>urlencode(json_encode($userdata)));
 			$data = DoceboApi::call('user/syncWordpressUsers/', $sendData);
 			$response = json_decode($data, true);
 

@@ -68,7 +68,6 @@ class DoceboApi {
 
 		$hash_info = self::getHash($data_params);
 		$http_header =self::getDefaultHeader($hash_info['x_auth']);
-		// var_dump('Sent from WP', $data_params, $hash_info);
 
 		$opt = array(
 			CURLOPT_URL=>$cloudUrl . '/api/' . $action,
@@ -84,8 +83,6 @@ class DoceboApi {
 
 		// $output contains the output string
 		$output = curl_exec($curl);
-
-		// echo 'LMS response: '.$output.'<br/><br/>';
 
 		// it closes the session
 		curl_close($curl);
@@ -106,7 +103,7 @@ class DoceboApi {
 		$time = time();
 		$token = md5($user.','.$time.','.$sso_key);
 
-		return $cloudUrl . '/doceboLms/index.php?auth_regen=1&modname=login&op=confirm&login_user=' . strtolower($user) . '&time=' . $time . '&token=' . $token;
+		return $cloudUrl . '/doceboLms/index.php?auth_regen=1&modname=login&op=confirm&login_user=' . $user . '&time=' . $time . '&token=' . $token;
 
 	}
 
