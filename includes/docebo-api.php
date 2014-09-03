@@ -109,7 +109,7 @@ class DoceboApi {
 
 	static public function createRestAuthLink($userid, $token){
 		$cloudUrl = self::getCloudUrl();
-		return $cloudUrl . '/lms/?r=site/loginRest&rest_token=' . $token.'&userid='.$userid;
+		return $cloudUrl . '/lms/?r=site/loginRest&rest_token=' . $token.'&userid='.urlencode($userid);
 	}
 
 	static public function getCloudUrl(){
